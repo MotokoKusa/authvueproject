@@ -11,7 +11,7 @@ export default {
   methods: {
     hasToken() {
       const token = localStorage.getItem("token");
-      if (token && this.$route.path !== "/analytics") {
+      if (token) {
         router.push({ path: "/analytics", name: "analytics" });
       } else if (this.$route.path !== "/") {
         router.push({ path: "/", name: "authorization" });
