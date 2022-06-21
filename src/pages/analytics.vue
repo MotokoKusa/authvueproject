@@ -1,7 +1,8 @@
 <template>
   <div class="about">
-    <h2>Аналитика</h2>
-    <AnalyticsGraph :data="listGraph" />
+    <h2>{{ title }}</h2>
+    <h3>{{ subtitle }}</h3>
+    <AnalyticsGraph :data="changeListDate" />
   </div>
 </template>
 
@@ -45,7 +46,22 @@ export default {
         {"date": "2020-07-28", "visits": 135},
         {"date": "2020-07-29", "visits": 45},
       ],
+      title: "Аналитика",
+      subtitle: "Аналитика по визитам",
     };
+  },
+  computed: {
+    changeListDate() {
+      let data = [];
+      this.listGraph.forEach((el) => {
+        let time = new Date(el.date);
+        data.push({
+          date: time,
+          value: el.visits,
+        });
+      });
+      return data;
+    },
   },
 };
 </script>

@@ -19,20 +19,7 @@ export default {
     spawnGraph(arr) {
       let chart = am4core.create(this.$refs.chartdiv, am4charts.XYChart);
       chart.paddingRight = 20;
-
-      let data = [];
-
-      arr.forEach((el, id) => {
-        data.push({
-          date: Date.parse(el.date),
-          name: "name" + (id + 1),
-          value: el.visits,
-        });
-      });
-
-      console.log(data);
-      chart.data = data;
-
+      chart.data = arr;
       let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       dateAxis.renderer.grid.template.location = 0;
 

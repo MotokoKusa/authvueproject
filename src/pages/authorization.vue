@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h2>{{ title }}</h2>
-    <p v-if="error">{{ error }}</p>
+    <p v-if="error.fail">{{ error.text }}</p>
     <AuthForm @submitForm="loginAuth" :btn="btn" />
   </div>
 </template>
@@ -18,20 +18,23 @@ export default {
     return {
       title: "LeadHit",
       btn: "Войти",
-      error: "",
+      error: {
+        text: "id сайта должен содержать 24 символа",
+        fail: false,
+      },
     };
   },
   methods: {
     async loginAuth(id) {
-      this.error = "";
       if (id && id.length === 24) {
+        this.error.fail = false;
         let response = await getAnalytics(id);
         if (response === "ok") {
           localStorage.setItem("token", `${id}`);
           await router.push({ path: "/analytics", name: "analytics" });
         }
       } else {
-        this.error = "Ошибка";
+        this.error.fail = true;
       }
     },
   },
